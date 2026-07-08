@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<script>document.documentElement.classList.add('js')</script>
+<title>ISOMETRIA — a tiny games studio</title>
+<meta name="description" content="ISOMETRIA is a tiny games studio building cosy worlds — rendered here as a living isometric island in three.js." />
+<meta name="theme-color" content="#bfe9ff" />
+<meta property="og:title" content="ISOMETRIA — a tiny games studio" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="./styles.css" />
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js" } }
+</script>
+</head>
+<body>
+<canvas id="world" aria-hidden="true"></canvas>
+
+<header class="nav">
+  <a class="brand" href="./">◆ ISOMETRIA</a>
+  <nav class="nav-links">
+    <a href="#games">Games</a>
+    <a href="#studio">Studio</a>
+    <a href="./guide/">Guide</a>
+    <button id="daynight" class="daynight" aria-label="Toggle day and night">☀ Day</button>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="hero-card">
+      <p class="eyebrow reveal">Indie games studio · Cosy worlds since 2026</p>
+      <h1 class="hero-title reveal">Tiny worlds,<br>made by hand.</h1>
+      <p class="hero-sub reveal">ISOMETRIA builds small, warm games you can hold in your head — islands,
+        villages and machines you'll want to live inside. Drag the island. Flip to night.</p>
+      <div class="hero-actions reveal">
+        <a class="btn" href="#games">▶ Play the reel</a>
+        <span class="hint">drag to spin · hover a tile</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="games" class="games">
+    <div class="section-head"><p class="kicker">[ Our games ]</p><h2 class="reveal">Small &amp; cosy</h2></div>
+    <div class="game-grid">
+      <article class="game reveal" style="--c:#7ec850" tabindex="0"><div class="g-tile"></div><h3>Harvest Hollow</h3><p>A farming sim you can finish in a weekend.</p><span class="g-tag">Cozy · 2026</span></article>
+      <article class="game reveal" style="--c:#4db6e8" tabindex="0"><div class="g-tile"></div><h3>Tide Pool</h3><p>Build a reef, one tiny creature at a time.</p><span class="g-tag">Sim · 2025</span></article>
+      <article class="game reveal" style="--c:#ef8d5a" tabindex="0"><div class="g-tile"></div><h3>Lantern</h3><p>A puzzle about carrying light through the dark.</p><span class="g-tag">Puzzle · 2025</span></article>
+      <article class="game reveal" style="--c:#b9a2ff" tabindex="0"><div class="g-tile"></div><h3>Clockwork Isle</h3><p>Wind up an island and watch it come alive.</p><span class="g-tag">Adventure · 2024</span></article>
+    </div>
+  </section>
+
+  <section id="studio" class="studio">
+    <div class="studio-inner">
+      <p class="kicker reveal">[ Studio ]</p>
+      <p class="studio-text reveal">We're four people and a very old cat. We make the kind of games we wish
+        existed when we were small — <em>gentle, curious, and just the right size.</em></p>
+      <div class="studio-facts">
+        <div class="reveal"><span class="f-num">4</span><span class="f-lbl">People</span></div>
+        <div class="reveal"><span class="f-num">1</span><span class="f-lbl">Cat</span></div>
+        <div class="reveal"><span class="f-num">4</span><span class="f-lbl">Games shipped</span></div>
+        <div class="reveal"><span class="f-num">∞</span><span class="f-lbl">Snacks</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <p class="foot-brand">ISOMETRIA</p>
+  <div class="foot-bottom">
+    <span>© 2026 ISOMETRIA STUDIO</span>
+    <span>Designed &amp; built by Fable · <a href="./guide/">How this was built →</a></span>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+:root{
+  --bg:#bfe9ff;
+  --ink:#233044;
+  --dim:#5c6b82;
+  --cream:#fdfbf5;
+  --accent:#ef8d5a;
+  --grass:#7ec850;
+  --line:rgba(35,48,68,.12);
+  --max:1280px;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --card:rgba(253,251,245,.82);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;font-weight:400;
+  line-height:1.55;overflow-x:hidden;-webkit-font-smoothing:antialiased;transition:background .8s ease}
+body.night{background:#0e1230;color:#e6ecff;--ink:#e6ecff;--dim:#9fb0d6;--line:rgba(230,236,255,.14);--card:rgba(22,28,60,.72)}
+a{color:inherit;text-decoration:none}
+em{font-style:normal;color:var(--accent)}
+::selection{background:var(--accent);color:#fff}
+
+#world{position:fixed;inset:0;width:100%;height:100%;z-index:0;display:block}
+body>*:not(#world){position:relative;z-index:2}
+
+/* nav */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;display:flex;justify-content:space-between;align-items:center;
+  padding:18px clamp(16px,4vw,44px)}
+.brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.2rem;letter-spacing:.01em}
+.nav-links{display:flex;gap:clamp(12px,2vw,26px);align-items:center;font-weight:600;font-size:.92rem}
+.nav-links a{color:var(--dim);transition:color .3s}.nav-links a:hover{color:var(--ink)}
+.daynight{font-family:"Nunito",sans-serif;font-weight:700;font-size:.88rem;cursor:pointer;color:var(--ink);
+  background:var(--card);border:1px solid var(--line);border-radius:40px;padding:8px 16px;
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);transition:transform .2s var(--ease),background .3s}
+.daynight:hover{transform:translateY(-2px)}
+@media(max-width:680px){.nav-links a:nth-child(1),.nav-links a:nth-child(2){display:none}}
+
+/* hero */
+.hero{min-height:100svh;display:flex;align-items:center;background:transparent; /* show the isometric world behind */
+  padding:110px clamp(16px,4vw,44px) 60px;max-width:var(--max);margin:0 auto}
+.hero-card{max-width:540px;background:var(--card);border:1px solid var(--line);border-radius:28px;
+  padding:clamp(26px,4vw,44px);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  box-shadow:0 30px 60px -30px rgba(35,48,68,.4)}
+.eyebrow{font-weight:700;font-size:.82rem;letter-spacing:.04em;text-transform:uppercase;color:var(--accent);margin-bottom:1rem}
+.hero-title{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.6rem,6vw,4.6rem);line-height:1.02;letter-spacing:-.01em}
+.hero-sub{margin:1.3rem 0 1.8rem;color:var(--dim);font-size:clamp(1rem,1.4vw,1.15rem);font-weight:600}
+.hero-actions{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.btn{font-family:"Fredoka",sans-serif;font-weight:600;background:var(--accent);color:#fff;border-radius:40px;
+  padding:13px 26px;font-size:1rem;box-shadow:0 10px 24px -8px rgba(239,141,90,.7);transition:transform .2s var(--ease)}
+.btn:hover{transform:translateY(-3px) scale(1.02)}
+.hint{font-size:.82rem;color:var(--dim);font-weight:600}
+
+/* sections */
+section{padding:clamp(70px,10vh,130px) clamp(16px,4vw,44px);background:var(--bg);transition:background .8s ease}
+body.night section{background:#0e1230}
+.games{border-top:1px solid var(--line)}
+.section-head{max-width:var(--max);margin:0 auto 2.6rem}
+.kicker{font-weight:700;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:.7rem}
+h2{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.2rem,6vw,4rem);line-height:1;letter-spacing:-.01em}
+
+/* game grid */
+.game-grid{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+@media(max-width:900px){.game-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.game-grid{grid-template-columns:1fr}}
+.game{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:transform .4s var(--ease),box-shadow .4s}
+.game:hover,.game:focus-visible{transform:translateY(-8px);box-shadow:0 26px 44px -22px rgba(35,48,68,.5);outline:none}
+.g-tile{height:110px;border-radius:16px;margin-bottom:16px;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--c) 85%,#fff),var(--c));
+  box-shadow:inset 0 -10px 0 -2px color-mix(in srgb,var(--c) 70%,#000),0 8px 18px -8px var(--c)}
+.game h3{font-family:"Fredoka",sans-serif;font-weight:600;font-size:1.35rem;margin-bottom:.3rem}
+.game p{color:var(--dim);font-size:.95rem;font-weight:600;margin-bottom:1rem;min-height:2.6em}
+.g-tag{font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--accent)}
+
+/* studio */
+.studio{border-top:1px solid var(--line)}
+.studio-inner{max-width:var(--max);margin:0 auto}
+.studio-text{font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(1.6rem,4vw,3rem);line-height:1.16;max-width:24ch;margin:.6rem 0 3rem}
+.studio-facts{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:560px){.studio-facts{grid-template-columns:repeat(2,1fr);gap:28px 20px}}
+.f-num{display:block;font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.6rem,6vw,4.4rem);color:var(--accent);line-height:1}
+.f-lbl{font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin-top:.3rem;display:block}
+
+/* footer */
+.footer{border-top:1px solid var(--line);padding:clamp(56px,8vh,100px) clamp(16px,4vw,44px) 40px;text-align:center}
+.foot-brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.2rem,8vw,5rem);letter-spacing:.01em;margin-bottom:1.6rem}
+.foot-bottom{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:.85rem;font-weight:600;color:var(--dim)}
+.foot-bottom a{color:var(--accent)}
+
+/* reveals */
+.js .reveal{opacity:0;transform:translateY(24px)}
+.js .reveal.is-in{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease)}
+/* hero reveals immediately on load (CSS-driven, not ScrollTrigger-dependent) */
+.hero.loaded .reveal{opacity:1;transform:none;transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.hero .eyebrow{transition-delay:.1s}.hero .hero-title{transition-delay:.22s}
+.hero .hero-sub{transition-delay:.36s}.hero .hero-actions{transition-delay:.5s}
+a:focus-visible,.btn:focus-visible,.daynight:focus-visible,.game:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){
+  .reveal,.js .reveal{opacity:1!important;transform:none!important}
+}

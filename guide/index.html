@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ISOMETRIA — Guide · How this was built</title>
+<meta name="description" content="How the ISOMETRIA site was built with Fable: an isometric island in three.js with an orthographic camera, soft shadows, and a day/night toggle." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+  :root{--bg:#eaf6ff;--ink:#233044;--dim:#5c6b82;--accent:#ef8d5a;--line:rgba(35,48,68,.14)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--ink);font-family:"Nunito",system-ui,sans-serif;line-height:1.65;-webkit-font-smoothing:antialiased}
+  a{color:var(--accent);text-decoration:none;font-weight:700}a:hover{text-decoration:underline}
+  .wrap{max-width:760px;margin:0 auto;padding:clamp(28px,6vw,80px) clamp(20px,5vw,32px)}
+  .top{display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:.85rem;color:var(--dim);margin-bottom:clamp(40px,8vh,80px)}
+  .top a{color:var(--dim)}
+  .brand{font-family:"Fredoka",sans-serif;font-weight:700;font-size:1.2rem;color:var(--ink)}
+  .tag{display:inline-block;font-weight:700;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:1.2rem}
+  h1{font-family:"Fredoka",sans-serif;font-weight:700;font-size:clamp(2.4rem,7vw,4.2rem);line-height:1.02;margin-bottom:1.2rem}
+  h1 em{font-style:normal;color:var(--accent)}
+  .lede{font-size:clamp(1.1rem,2.2vw,1.35rem);color:var(--dim);max-width:56ch;margin-bottom:3rem;font-weight:600}
+  h2{font-family:"Fredoka",sans-serif;font-weight:600;font-size:clamp(1.6rem,4vw,2.3rem);margin:2.6rem 0 1rem}
+  p{color:var(--dim);margin:0 0 1.1rem;max-width:64ch;font-weight:600}
+  strong{color:var(--ink)}
+  ul{color:var(--dim);margin:0 0 1.2rem 1.2rem;font-weight:600}li{margin:.4rem 0}
+  code{font-family:"JetBrains Mono",monospace;font-size:.86em;background:rgba(35,48,68,.08);padding:.12em .4em;border-radius:4px;color:var(--ink);font-weight:400}
+  pre{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px;overflow-x:auto;margin:0 0 1.4rem;font-size:.82rem;line-height:1.6;font-family:"JetBrains Mono",monospace}
+  pre code{background:none;padding:0;color:var(--dim)}
+  .stack{list-style:none;margin:0 0 1.2rem;padding:0}
+  .stack li{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .stack b{color:var(--ink);min-width:120px}
+  .rule{height:1px;background:var(--line);margin:3rem 0}
+  footer{margin-top:4rem;padding-top:2rem;border-top:1px solid var(--line);font-weight:600;font-size:.85rem;color:var(--dim)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><a class="brand" href="../">◆ ISOMETRIA</a><a href="../">← Back to site</a></div>
+  <span class="tag">Build guide · Site 20 of 25</span>
+  <h1>A whole island in an <em>orthographic box</em>.</h1>
+  <p class="lede">ISOMETRIA is one of 25 sites built by Fable. The hero is a real 3D island you can spin,
+    lit by a single sun and flippable to night — built from a hundred little cubes.</p>
+
+  <h2>The idea</h2>
+  <p>A cosy-games studio should greet you with a cosy world. Instead of a render or a video, the island
+    is generated live: a height function raises cubes out of the sea, colours them by altitude, and dots
+    them with trees and a lighthouse.</p>
+
+  <h2>The stack</h2>
+  <ul class="stack">
+    <li><b>3D</b> three.js (r160) via an import-map — no bundler.</li>
+    <li><b>Camera</b> an <strong>orthographic</strong> camera for true isometric depth (no perspective).</li>
+    <li><b>Light</b> one shadow-casting sun + ambient, with soft (PCFSoft) shadows.</li>
+    <li><b>Type</b> Fredoka (rounded display) + Nunito (body).</li>
+    <li><b>Host</b> static files on GitHub Pages.</li>
+  </ul>
+
+  <h2>Signature technique: a generated island</h2>
+  <p>A radial falloff makes the land a dome that sinks into water at the edges; a little sine noise adds
+    variety; rounding the result gives the blocky, stepped look:</p>
+  <pre><code>const r = distanceFromCentre(i, j);           // 0 at middle → 1 at edge
+let h = (1 - r) * 4.2 + sin(i*0.9) + cos(j*0.75);
+level = max(0, round(h));                      // integer terraces
+color = [water, sand, grass, grass, rock, snow][level];</code></pre>
+  <p>Each cube is scaled on Y to its height and dropped on the grid. A raycaster lifts whichever tile is
+    under your cursor; a drag rotates the whole group; the day/night button just dims the sun and swaps
+    its colour to moonlight.</p>
+
+  <h2>Details that matter</h2>
+  <ul>
+    <li><strong>Orthographic = isometric</strong> — parallel lines stay parallel, so far cubes are the same size as near ones.</li>
+    <li><strong>Context safety</strong> — we grab the WebGL context ourselves and hand it to three, so it never probes a conflicting type.</li>
+    <li><strong>Performance</strong> — devicePixelRatio capped at 1.5; a single 1024² shadow map.</li>
+    <li><strong>Reduced motion / no WebGL</strong> — the world renders one still frame, and the glass hero card stands alone.</li>
+  </ul>
+
+  <h2>Ship it on GitHub Pages</h2>
+  <pre><code>git init -b main &amp;&amp; git add -A &amp;&amp; git commit -m "ship"
+gh repo create fable-isometria --public --source=. --push
+gh api --method POST /repos/OWNER/fable-isometria/pages \
+  -f 'source[branch]=main' -f 'source[path]=/'</code></pre>
+
+  <div class="rule"></div>
+  <p>A height function, a hundred cubes and one sun — a little world you can hold in a browser tab.</p>
+  <footer>Designed &amp; built by <strong>Fable</strong> · Part of a 25-site showcase · <a href="../">Return to ISOMETRIA →</a></footer>
+</div>
+</body>
+</html>
