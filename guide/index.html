@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ISOMETRIA — Guide · How this was built</title>
-<meta name="description" content="How the ISOMETRIA site was built with Fable: an isometric island in three.js with an orthographic camera, soft shadows, and a day/night toggle." />
+<meta name="description" content="How the ISOMETRIA site was built with Formwork: an isometric island in three.js with an orthographic camera, soft shadows, and a day/night toggle." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
@@ -40,7 +40,7 @@
   <div class="top"><a class="brand" href="../">◆ ISOMETRIA</a><a href="../">← Back to site</a></div>
   <span class="tag">Build guide · Site 20 of 25</span>
   <h1>A whole island in an <em>orthographic box</em>.</h1>
-  <p class="lede">ISOMETRIA is one of 25 sites built by Fable. The hero is a real 3D island you can spin,
+  <p class="lede">ISOMETRIA is one of 25 sites built by Formwork. The hero is a real 3D island you can spin,
     lit by a single sun and flippable to night — built from a hundred little cubes.</p>
 
   <h2>The idea</h2>
@@ -78,13 +78,13 @@ color = [water, sand, grass, grass, rock, snow][level];</code></pre>
 
   <h2>Ship it on GitHub Pages</h2>
   <pre><code>git init -b main &amp;&amp; git add -A &amp;&amp; git commit -m "ship"
-gh repo create fable-isometria --public --source=. --push
-gh api --method POST /repos/OWNER/fable-isometria/pages \
+gh repo create formwork-isometria --public --source=. --push
+gh api --method POST /repos/OWNER/formwork-isometria/pages \
   -f 'source[branch]=main' -f 'source[path]=/'</code></pre>
 
   <div class="rule"></div>
   <p>A height function, a hundred cubes and one sun — a little world you can hold in a browser tab.</p>
-  <footer>Designed &amp; built by <strong>Fable</strong> · Part of a 25-site showcase · <a href="../">Return to ISOMETRIA →</a></footer>
+  <footer>Designed &amp; built by <strong>Formwork</strong> · Part of a 25-site showcase · <a href="../">Return to ISOMETRIA →</a></footer>
 </div>
 </body>
 </html>
